@@ -1,0 +1,322 @@
+<!-- ══════════════════════════════════════════════
+     LEADERSHIP MESSAGES SECTION
+     Page: about.html
+     Place: Between Mission section and Values section
+     ══════════════════════════════════════════════ -->
+
+<!-- CSS — paste inside your about-style.css -->
+<style>
+.messages-section { background: var(--cream); padding: 88px 0; }
+
+.message-card {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 48px;
+  align-items: start;
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  padding: 44px;
+  margin-bottom: 28px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.message-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 5px;
+  background: linear-gradient(180deg, var(--green), var(--green-light));
+}
+.message-card.secretary::before {
+  background: linear-gradient(180deg, var(--gold), var(--gold-light));
+}
+.message-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+
+/* Left side */
+.message-person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.message-photo {
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 5px solid var(--green-muted);
+  margin-bottom: 18px;
+  display: block;
+}
+.message-card.secretary .message-photo {
+  border-color: var(--gold-pale);
+}
+.message-avatar-fallback {
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--green), var(--green-light));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem; font-weight: 900; color: var(--white);
+  margin-bottom: 18px; flex-shrink: 0;
+}
+.message-card.secretary .message-avatar-fallback {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--dark);
+}
+.message-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 900; color: var(--dark);
+  margin-bottom: 4px;
+}
+.message-role {
+  font-size: 0.75rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--green); margin-bottom: 4px;
+}
+.message-card.secretary .message-role { color: #a06a10; }
+.message-org {
+  font-size: 0.78rem; color: var(--muted);
+}
+.message-signature {
+  width: 120px; height: auto;
+  opacity: 0.75; margin-top: 18px; display: block;
+}
+.message-pdf-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 30px;
+  border: 1.5px solid var(--green); color: var(--green);
+  font-size: 0.75rem; font-weight: 700;
+  text-decoration: none; margin-top: 14px;
+  transition: var(--transition);
+}
+.message-card.secretary .message-pdf-btn {
+  border-color: var(--gold); color: #a06a10;
+}
+.message-pdf-btn:hover { background: var(--green); color: var(--white); }
+.message-card.secretary .message-pdf-btn:hover {
+  background: var(--gold); color: var(--dark);
+}
+
+/* Right side */
+.message-body { min-width: 0; }
+.message-quote-icon {
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem; line-height: 1;
+  color: var(--green); opacity: 0.15;
+  margin-bottom: -16px; display: block;
+}
+.message-card.secretary .message-quote-icon { color: var(--gold); }
+.message-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--green-muted); color: var(--green);
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 30px; margin-bottom: 16px;
+}
+.message-card.secretary .message-badge {
+  background: var(--gold-pale); color: #a06a10;
+}
+.message-welcome {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem; font-weight: 900; color: var(--dark);
+  margin-bottom: 18px; line-height: 1.3;
+}
+.message-welcome em { color: var(--green); font-style: normal; }
+.message-card.secretary .message-welcome em { color: #a06a10; }
+.message-text {
+  font-size: 0.93rem; color: var(--mid);
+  line-height: 1.9; margin-bottom: 14px;
+}
+.message-divider {
+  width: 40px; height: 2px;
+  background: var(--green);
+  margin: 18px 0; border-radius: 2px;
+}
+.message-card.secretary .message-divider { background: var(--gold); }
+.message-closing {
+  font-size: 0.88rem; color: var(--muted);
+  font-style: italic; margin-top: 20px;
+  padding-top: 18px; border-top: 1px solid var(--border);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .message-card { grid-template-columns: 220px 1fr; gap: 32px; padding: 36px; }
+  .message-photo, .message-avatar-fallback { width: 130px; height: 130px; }
+}
+@media (max-width: 768px) {
+  .message-card { grid-template-columns: 1fr; gap: 24px; padding: 28px 22px; }
+  .message-person { flex-direction: row; text-align: left; align-items: center; gap: 20px; }
+  .message-photo, .message-avatar-fallback { width: 90px; height: 90px; margin-bottom: 0; flex-shrink: 0; }
+  .message-avatar-fallback { font-size: 2rem; }
+}
+@media (max-width: 480px) {
+  .message-person { flex-direction: column; text-align: center; }
+}
+</style>
+
+
+<!-- ══ HTML ══ -->
+<section class="messages-section">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="text-center" data-fade>
+      <div class="label center">Leadership</div>
+      <h2>Messages from Our <em class="em-green">Leaders</em></h2>
+      <p style="max-width:520px;margin:12px auto 0">
+        Words of vision and commitment from the founding leadership of Subaita Foundation.
+      </p>
+    </div>
+
+    <div style="margin-top:52px">
+
+      <!-- ── CHAIRPERSON MESSAGE ── -->
+      <div class="message-card" data-fade>
+
+        <!-- Left — Photo & Info -->
+        <div class="message-person">
+
+          <!-- Real photo — uncomment when ready -->
+          <!-- <img
+            src="assets/images/chairperson.jpg"
+            alt="Suborna Akter Sonali — Chairperson, Subaita Foundation"
+            class="message-photo"
+            loading="lazy"
+          /> -->
+
+          <!-- Fallback avatar — remove when real photo is added -->
+          <div class="message-avatar-fallback">S</div>
+
+          <div>
+            <div class="message-name">Suborna Akter (Sonali)</div>
+            <div class="message-role">Chairperson</div>
+            <div class="message-org">Subaita Foundation</div>
+
+            <!-- Signature — uncomment when scanned -->
+            <!-- <img
+              src="assets/images/signature-chairperson.png"
+              alt="Signature of Chairperson"
+              class="message-signature"
+            /> -->
+
+            <!-- PDF button — uncomment when PDF ready -->
+            <!-- <a
+              href="assets/documents/chairperson-statement.pdf"
+              target="_blank" rel="noopener"
+              class="message-pdf-btn">
+              📄 Full Statement
+            </a> -->
+          </div>
+        </div>
+
+        <!-- Right — Message -->
+        <div class="message-body">
+          <span class="message-badge">✦ Chairperson's Message</span>
+          <span class="message-quote-icon">"</span>
+          <h3 class="message-welcome">Welcome to <em>Subaita Foundation</em></h3>
+
+          <p class="message-text">
+            At Subaita Foundation, we believe that true social development begins with empowering people through knowledge, skills, and opportunities. Our mission is to uplift women, youth, and marginalized communities by promoting education, vocational training, entrepreneurship, legal awareness, and humanitarian support.
+          </p>
+          <div class="message-divider"></div>
+          <p class="message-text">
+            As a woman, a mother, and a social worker, I strongly believe that motherhood is not a barrier to leadership — it is a source of strength. Every woman deserves the opportunity to become self-reliant, contribute to society, and achieve her full potential.
+          </p>
+          <div class="message-divider"></div>
+          <p class="message-text">
+            Our vision is to build an inclusive and compassionate Bangladesh where every individual has the opportunity to grow with dignity and confidence. Together with our dedicated volunteers, partners, and supporters, we are committed to creating sustainable change that positively impacts lives across the country.
+          </p>
+          <div class="message-divider"></div>
+          <p class="message-text">
+            I warmly invite you to join our journey of service, empowerment, and hope. Together, we can build a brighter future for generations to come.
+          </p>
+
+          <p class="message-closing">
+            — Suborna Akter (Sonali), Chairperson, Subaita Foundation
+          </p>
+        </div>
+
+      </div><!-- end chairperson -->
+
+
+      <!-- ── GENERAL SECRETARY MESSAGE ── -->
+      <div class="message-card secretary" data-fade data-delay="2">
+
+        <!-- Left — Photo & Info -->
+        <div class="message-person">
+
+          <!-- Real photo — uncomment when ready -->
+          <!-- <img
+            src="assets/images/secretary.jpg"
+            alt="Khairul Amin — General Secretary, Subaita Foundation"
+            class="message-photo"
+            loading="lazy"
+          /> -->
+
+          <!-- Fallback avatar -->
+          <div class="message-avatar-fallback">K</div>
+
+          <div>
+            <div class="message-name">Khairul Amin</div>
+            <div class="message-role">General Secretary</div>
+            <div class="message-org">Subaita Foundation</div>
+
+            <!-- Signature — uncomment when scanned -->
+            <!-- <img
+              src="assets/images/signature-secretary.png"
+              alt="Signature of General Secretary"
+              class="message-signature"
+            /> -->
+
+            <!-- PDF button — uncomment when ready -->
+            <!-- <a
+              href="assets/documents/secretary-statement.pdf"
+              target="_blank" rel="noopener"
+              class="message-pdf-btn">
+              📄 Full Statement
+            </a> -->
+          </div>
+        </div>
+
+        <!-- Right — Message -->
+        <div class="message-body">
+          <span class="message-badge">✦ General Secretary's Message</span>
+          <span class="message-quote-icon">"</span>
+          <h3 class="message-welcome">Welcome to <em>Subaita Foundation</em></h3>
+
+          <p class="message-text">
+            At Subaita Foundation, we are committed to transforming compassion into meaningful action. Our mission is to empower women, youth, and marginalized communities through education, skills development, entrepreneurship, humanitarian assistance, and community engagement.
+          </p>
+          <div class="message-divider"></div>
+          <p class="message-text">
+            We believe that sustainable development is achieved when individuals are equipped with the knowledge, confidence, and opportunities to become self-reliant. Every training program, awareness campaign, and social initiative we undertake is designed to create lasting impact and strengthen communities from the grassroots level.
+          </p>
+          <div class="message-divider"></div>
+          <p class="message-text">
+            As General Secretary, I am proud to work alongside our dedicated volunteers, Executive Committee members, partners, and supporters who share a common vision of building a more inclusive, equitable, and prosperous Bangladesh. Their commitment and collective efforts continue to inspire positive change in the lives of countless people.
+          </p>
+          <div class="message-divider"></div>
+          <p class="message-text">
+            We warmly invite individuals, organizations, and development partners to join our journey. Together, we can expand opportunities, inspire hope, and create sustainable solutions that improve lives and contribute to a stronger and more compassionate society.
+          </p>
+          <p class="message-text">
+            Thank you for your trust, support, and belief in our mission.
+          </p>
+
+          <p class="message-closing">
+            — Khairul Amin, General Secretary, Subaita Foundation
+          </p>
+        </div>
+
+      </div><!-- end secretary -->
+
+    </div>
+  </div>
+</section>
